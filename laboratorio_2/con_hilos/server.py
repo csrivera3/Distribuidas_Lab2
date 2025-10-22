@@ -7,9 +7,7 @@ import json
 ARCHIVO_CSV = "calificaciones.csv"
 lock = threading.Lock()
 
-# -----------------------------
-# Funciones de gestión del CSV
-# -----------------------------
+
 def inicializar_csv():
     if not os.path.exists(ARCHIVO_CSV):
         with open(ARCHIVO_CSV, 'w', newline='', encoding='utf-8') as f:
@@ -71,9 +69,7 @@ def listar_todos():
         reader = list(csv.DictReader(f))
         return {"status": "ok", "data": reader}
 
-# -----------------------------
-# Procesamiento de comandos
-# -----------------------------
+#Procesar comandos
 def procesar_comando(cmd):
     partes = cmd.split('|')
     op = partes[0].upper()
@@ -91,33 +87,29 @@ def procesar_comando(cmd):
     else:
         return {"status": "error", "mensaje": "Comando inválido."}
 
-# -----------------------------
-# Manejo de hilos y conexiones
-# -----------------------------
+#Manejo de hilos
 def manejar_cliente(conn, addr):
-    print(f"🔗 Conexión desde {addr}")
+    print(f"Conexión desde {addr}")
     try:
         data = conn.recv(4096).decode()
         if not data:
             return
-        print(f"📩 Comando recibido: {data}")
+        print(f"Comando recibido: {data}")
         resp = procesar_comando(data)
         conn.send(json.dumps(resp, indent=2, ensure_ascii=False).encode())
     except Exception as e:
-        print("❌ Error manejando cliente:", e)
+        print("Error manejando cliente:", e)
     finally:
         conn.close()
-        print(f"🔒 Conexión cerrada con {addr}")
+        print(f"Conexión cerrada con {addr}")
 
-# -----------------------------
-# Servidor principal
-# -----------------------------
+#Servidor
 def main():
     inicializar_csv()
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(('localhost', 12345))
     s.listen(5)
-    print("💻 Servidor concurrente listo en puerto 12345...")
+    print("Servidor concurrente listo en puerto 12345...")
 
     try:
         while True:
@@ -125,10 +117,10 @@ def main():
             hilo = threading.Thread(target=manejar_cliente, args=(conn, addr))
             hilo.start()
     except KeyboardInterrupt:
-        print("\n🛑 Servidor detenido manualmente.")
+        print("\nServidor detenido manualmente.")
     finally:
         s.close()
 
-# -----------------------------
+
 if __name__ == "__main__":
     main()
