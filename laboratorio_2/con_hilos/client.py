@@ -12,10 +12,10 @@ def enviar_comando(cmd):
         resp = json.loads(data)
         print("Respuesta:", resp)
     except Exception as e:
-        print("❌ Error:", e)
+        print("Error:", e)
 
 def menu():
-    print("\n📋 MENÚ PRINCIPAL")
+    print("\nMENÚ PRINCIPAL")
     print("1. Agregar calificación")
     print("2. Buscar por ID")
     print("3. Actualizar calificación")
