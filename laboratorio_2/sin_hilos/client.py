@@ -31,7 +31,14 @@ while True:
     if opcion == "1":
         id_est = input("ID: ").strip()
         nombre = input("Nombre: ").strip()
-        materia = input("Materia: ").strip()
+        nrc_type = input("¿Ingresar NRC por nombre o número? (nombre/numero): ").lower()
+        if nrc_type == 'nombre':
+            materia = input("Nombre de la materia: ")
+        elif nrc_type == 'numero':
+            materia = input("Número de NRC: ")
+        else:
+            print("Opción inválida. Use 'nombre' o 'numero'.")
+            continue
         calif = input("Calificación: ").strip()
         res = enviar_comando(f"AGREGAR|{id_est}|{nombre}|{materia}|{calif}")
         print(res.get("mensaje", "Sin mensaje"))

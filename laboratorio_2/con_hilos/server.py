@@ -7,15 +7,28 @@ import json
 ARCHIVO_CSV = "calificaciones.csv"
 lock = threading.Lock()
 
-
 def inicializar_csv():
     if not os.path.exists(ARCHIVO_CSV):
         with open(ARCHIVO_CSV, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             writer.writerow(["ID", "Nombre", "Materia", "Calificacion"])
 
+def consultar_nrc(nrc):
+    try:
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(('localhost', 12346))
+        client_socket.send(f"BUSCAR_NRC|{nrc}".encode('utf-8'))
+        data = client_socket.recv(4096).decode('utf-8')
+        client_socket.close()
+        return json.loads(data)
+    except Exception as e:
+        return {"status": "error", "mensaje": "Error consultando NRC"}
+
 def agregar_calificacion(id_est, nombre, materia, calificacion):
     with lock:
+        res_nrc = consultar_nrc(materia)
+        if res_nrc["status"] != "ok":
+            return {"status": "error", "mensaje": "Materia/NRC no válida"}
         with open(ARCHIVO_CSV, 'a', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             writer.writerow([id_est, nombre, materia, calificacion])
@@ -36,6 +49,9 @@ def actualizar_calificacion(id_est, nueva_calif):
             reader = csv.DictReader(f)
             for row in reader:
                 if row["ID"] == id_est:
+                    res_nrc = consultar_nrc(row["Materia"])
+                    if res_nrc["status"] != "ok":
+                        return {"status": "error", "mensaje": "Materia/NRC no válida"}
                     row["Calificacion"] = nueva_calif
                     encontrado = True
                 filas.append(row)
@@ -69,7 +85,6 @@ def listar_todos():
         reader = list(csv.DictReader(f))
         return {"status": "ok", "data": reader}
 
-#Procesar comandos
 def procesar_comando(cmd):
     partes = cmd.split('|')
     op = partes[0].upper()
@@ -87,7 +102,6 @@ def procesar_comando(cmd):
     else:
         return {"status": "error", "mensaje": "Comando inválido."}
 
-#Manejo de hilos
 def manejar_cliente(conn, addr):
     print(f"Conexión desde {addr}")
     try:
@@ -103,7 +117,6 @@ def manejar_cliente(conn, addr):
         conn.close()
         print(f"Conexión cerrada con {addr}")
 
-#Servidor
 def main():
     inicializar_csv()
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -120,7 +133,6 @@ def main():
         print("\nServidor detenido manualmente.")
     finally:
         s.close()
-
 
 if __name__ == "__main__":
     main()
