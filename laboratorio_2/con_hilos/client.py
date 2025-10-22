@@ -1,13 +1,18 @@
 import socket
 import json
+import threading
 
 def enviar_comando(cmd):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect(('localhost', 12345))
-    s.send(cmd.encode())
-    data = s.recv(4096).decode()
-    s.close()
-    return json.loads(data)
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect(('localhost', 12345))
+        s.send(cmd.encode())
+        data = s.recv(4096).decode()
+        s.close()
+        resp = json.loads(data)
+        print("Respuesta:", resp)
+    except Exception as e:
+        print("❌ Error:", e)
 
 def menu():
     print("\n📋 MENÚ PRINCIPAL")
@@ -26,22 +31,20 @@ while True:
         nombre = input("Nombre: ")
         materia = input("Materia: ")
         calif = input("Calificación: ")
-        resp = enviar_comando(f"AGREGAR|{id_}|{nombre}|{materia}|{calif}")
+        threading.Thread(target=enviar_comando, args=(f"AGREGAR|{id_}|{nombre}|{materia}|{calif}",)).start()
     elif opcion == '2':
         id_ = input("ID: ")
-        resp = enviar_comando(f"BUSCAR|{id_}")
+        threading.Thread(target=enviar_comando, args=(f"BUSCAR|{id_}",)).start()
     elif opcion == '3':
         id_ = input("ID: ")
         nueva = input("Nueva calificación: ")
-        resp = enviar_comando(f"ACTUALIZAR|{id_}|{nueva}")
+        threading.Thread(target=enviar_comando, args=(f"ACTUALIZAR|{id_}|{nueva}",)).start()
     elif opcion == '4':
         id_ = input("ID: ")
-        resp = enviar_comando(f"ELIMINAR|{id_}")
+        threading.Thread(target=enviar_comando, args=(f"ELIMINAR|{id_}",)).start()
     elif opcion == '5':
-        resp = enviar_comando("LISTAR")
+        threading.Thread(target=enviar_comando, args=("LISTAR",)).start()
     elif opcion == '6':
         break
     else:
         print("Opción inválida.")
-        continue
-    print("Respuesta:", resp)
