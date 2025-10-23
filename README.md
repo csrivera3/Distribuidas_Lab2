@@ -83,6 +83,7 @@ El servidor secuencial gestiona operaciones **CRUD** sobre un archivo `calificac
 - **Creación automática**: Si `calificaciones.csv` no existe, se crea con encabezados.
 
 ### Ejemplo de Ejecución
+**![Image](https://github.com/user-attachments/assets/de933e2b-6412-4190-859a-7f6c870f6c84)**:
 **Entrada (Cliente)**:
 ```
 1. Agregar Calificación
