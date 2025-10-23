@@ -29,9 +29,17 @@ while True:
     if opcion == '1':
         id_ = input("ID: ")
         nombre = input("Nombre: ")
-        materia = input("Materia: ")
+        nrc_type = input("¿Ingresar NRC por nombre o número? (nombre/numero): ").lower()
+        if nrc_type == 'nombre':
+            materia = input("Nombre de la materia: ")
+        elif nrc_type == 'numero':
+            materia = input("Número de NRC: ")
+        else:
+            print("Opción inválida. Use 'nombre' o 'numero'.")
+            continue
         calif = input("Calificación: ")
-        threading.Thread(target=enviar_comando, args=(f"AGREGAR|{id_}|{nombre}|{materia}|{calif}",)).start()
+        cmd = f"AGREGAR|{id_}|{nombre}|{materia}|{calif}"
+        threading.Thread(target=enviar_comando, args=(cmd,)).start()
     elif opcion == '2':
         id_ = input("ID: ")
         threading.Thread(target=enviar_comando, args=(f"BUSCAR|{id_}",)).start()

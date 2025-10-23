@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Laboratorio 2 – Sistema Distribuido de Registro de Calificaciones
 
 Materia: Aplicaciones Distribuidas
@@ -221,3 +222,7 @@ Tanenbaum, A. (2021). Distributed Systems: Principles and Paradigms.
 Brewer, E. (2000). Towards Robust Distributed Systems (The CAP Theorem).
 
 Universidad de las Fuerzas Armadas ESPE – Laboratorio 2: Aplicaciones Distribuidas.
+=======
+# Distribuidas_Lab2
+#Sistema de Gestión de Calificaciones
+>>>>>>> 50f7da8eac7b00989bad98106d254cecd0136002
