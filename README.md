@@ -117,9 +117,6 @@ El servidor de calificaciones consulta al servidor de NRCs mediante un socket en
 **Ejemplo de Solicitud**:
 ```
 **<img width="1418" height="758" alt="Image" src="https://github.com/user-attachments/assets/5be1f6c2-07dd-4f7f-96ae-f7f09bc86eab" />**:
-**<img width="1342" height="675" alt="Image" src="https://github.com/user-attachments/assets/933d9758-e2f1-49ff-8421-25c7a8be9bef" />**:
-**<img width="629" height="267" alt="Image" src="https://github.com/user-attachments/assets/ca93b72e-abfd-48d5-8877-c9c3a0062e55" />**:
-
 
 **Respuesta del Servidor NRC**:
 ```json
