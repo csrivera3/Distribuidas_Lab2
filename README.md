@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 Laboratorio 2 – Sistema Distribuido de Registro de Calificaciones
-
+<img width="1418" height="758" alt="Image" src="https://github.com/user-attachments/assets/b08d1e68-0731-4f49-885e-af050284707c" />
 Materia: Aplicaciones Distribuidas
 Integrantes: Ronny Ibarra, Javier Ramos, Carlos Rivera
 Profesor: Geovanny Cudco
