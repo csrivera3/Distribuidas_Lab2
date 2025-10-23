@@ -115,8 +115,7 @@ El servidor concurrente utiliza **hilos** (`threading`) para atender múltiples 
 El servidor de calificaciones consulta al servidor de NRCs mediante un socket en el puerto `12346`.
 
 **Ejemplo de Solicitud**:
-```
-**<img width="1418" height="758" alt="Image" src="https://github.com/user-attachments/assets/5be1f6c2-07dd-4f7f-96ae-f7f09bc86eab" />** 
+**<img width="1418" height="758" alt="Image" src="https://github.com/user-attachments/assets/5be1f6c2-07dd-4f7f-96ae-f7f09bc86eab" />** :
 
 **Respuesta del Servidor NRC**:
 ```json
