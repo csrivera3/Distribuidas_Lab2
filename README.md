@@ -149,7 +149,7 @@ ID,Nombre,Materia,Calificacion
 
 ---
 ## Ejemplos de ejecución
-****![Image](https://github.com/user-attachments/assets/491c8ad2-54ea-44fc-9d68-a62d73473bbd)**:
+**![Image](https://github.com/user-attachments/assets/491c8ad2-54ea-44fc-9d68-a62d73473bbd)**:
 
 ## Instrucciones de Ejecución
 
